@@ -1,25 +1,32 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+include 'includes/book-utilities.inc.php';
+
+// 读取客户
+$customers = readCustomers("data/customers.txt");
+
+// 获取点击的客户ID
+$selectedID = isset($_GET['id']) ? $_GET['id'] : null;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- ✅ 标题已加入名字 -->
     <title>Jiaozinan DC229841 - CISC3003 Suggested Exercise 10</title>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- 字体 -->
     <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
-    <!-- 图标 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!-- CSS -->
+    <!-- 用本地 -->
     <link rel="stylesheet" href="css/material.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/demo-styles.css">
 
-    <!-- JS -->
     <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="js/material.min.js"></script>
     <script src="js/jquery.sparkline.2.1.2.js"></script>
@@ -28,7 +35,7 @@
 <body>
 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-    
+
 <!-- HEADER -->
 <header class="mdl-layout__header">
   <div class="mdl-layout__header-row">
@@ -45,27 +52,15 @@
   </div>
 </header>
 
-<!-- LEFT NAV -->
+<!-- LEFT -->
 <div class="mdl-layout__drawer mdl-color--blue-grey-800 mdl-color-text--white">
    <div class="profile">
        <img src="images/profile.jpg" class="avatar" alt="profile">
        <h2>John Locke</h2>
        <span>johnlocke@example.com</span>
    </div>
-
-   <nav class="mdl-navigation">
-       <a class="mdl-navigation__link" href="#">Dashboard</a>
-       <a class="mdl-navigation__link" href="#">Messages</a>
-       <a class="mdl-navigation__link" href="#">Tasks</a>
-       <a class="mdl-navigation__link" href="#">Orders</a>
-       <a class="mdl-navigation__link" href="#">Configure</a>
-       <a class="mdl-navigation__link" href="#">Catalog</a>
-       <a class="mdl-navigation__link" href="#">Customers</a>
-       <a class="mdl-navigation__link" href="#">Analytics</a>
-   </nav>
 </div>
 
-<!-- MAIN -->
 <main class="mdl-layout__content">
 <section class="page-content">
 
@@ -90,12 +85,16 @@
 
 <tbody>
 
-<tr>
-<td><a href="?id=18">Joao Fernandes</a></td>
-<td>University of Lisbon</td>
-<td>Lisbon</td>
-<td><span class="sparkline">3,3,4,3,5,1,3,3,1,2,1,5</span></td>
-</tr>
+<?php
+foreach ($customers as $c) {
+    echo "<tr>";
+    echo "<td><a href='?id={$c['id']}'>{$c['firstName']} {$c['lastName']}</a></td>";
+    echo "<td>{$c['university']}</td>";
+    echo "<td>{$c['city']}</td>";
+    echo "<td><span class='sparkline'>{$c['sales']}</span></td>";
+    echo "</tr>";
+}
+?>
 
 </tbody>
 </table>
@@ -112,10 +111,22 @@
 </div>
 
 <div class="mdl-card__supporting-text">
-<h3>Joao Fernandes</h3>
-<p>Email: jfernandes@yahoo.pt</p>
-<p>Phone: +351 (213) 466-111</p>
-<p>Rua da Assuncao 53, Lisbon</p>
+
+<?php
+if ($selectedID) {
+    foreach ($customers as $c) {
+        if ($c['id'] == $selectedID) {
+            echo "<h3>{$c['firstName']} {$c['lastName']}</h3>";
+            echo "<p>Email: {$c['email']}</p>";
+            echo "<p>Phone: {$c['phone']}</p>";
+            echo "<p>{$c['address']}, {$c['city']}</p>";
+        }
+    }
+} else {
+    echo "<p>Select a customer</p>";
+}
+?>
+
 </div>
 </div>
 
@@ -127,6 +138,7 @@
 
 <div class="mdl-card__supporting-text">
 <table class="mdl-data-table mdl-shadow--2dp">
+
 <thead>
 <tr>
 <th>Cover</th>
@@ -137,17 +149,23 @@
 
 <tbody>
 
-<tr>
-<td><img src="images/tinysquare/0132948850.jpg" width="50" alt="book cover"></td>
-<td>0132948850</td>
-<td>Survey of Economics</td>
-</tr>
+<?php
+if ($selectedID) {
+    $orders = readOrders($selectedID, "data/orders.txt");
 
-<tr>
-<td><img src="images/tinysquare/0132948869.jpg" width="50" alt="book cover"></td>
-<td>0132948869</td>
-<td>Microeconomics</td>
-</tr>
+    if (count($orders) > 0) {
+        foreach ($orders as $o) {
+            echo "<tr>";
+            echo "<td><img src='images/tinysquare/{$o['isbn']}.jpg' width='50' alt='book'></td>";
+            echo "<td>{$o['isbn']}</td>";
+            echo "<td>{$o['title']}</td>";
+            echo "</tr>";
+        }
+    } else {
+        echo "<tr><td colspan='3'>No orders found</td></tr>";
+    }
+}
+?>
 
 </tbody>
 </table>
@@ -162,7 +180,6 @@
 
 </div>
 
-<!-- Sparkline -->
 <script>
 $(function() {
     $('.sparkline').sparkline('html', { type: 'bar' });
