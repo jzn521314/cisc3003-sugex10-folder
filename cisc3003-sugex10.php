@@ -1,33 +1,21 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-include 'includes/book-utilities.inc.php';
-
-// 读取客户数据
-$customers = readCustomers("data/customers.txt");
-
-// 获取选中的客户ID
-$selectedID = isset($_GET['id']) ? $_GET['id'] : null;
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>CISC3003 Suggested Exercise 10</title>
+    <!-- ✅ 标题已加入名字 -->
+    <title>Jiaozinan DC229841 - CISC3003 Suggested Exercise 10</title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- 字体 -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <!-- 图标 -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!-- ✅ 用本地Material（关键） -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/material.min.css">
-
-    <!-- 自己样式 -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/demo-styles.css">
 
@@ -41,128 +29,136 @@ $selectedID = isset($_GET['id']) ? $_GET['id'] : null;
 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     
-    <?php include 'includes/header.inc.php'; ?>
-    <?php include 'includes/left-nav.inc.php'; ?>
-    
-    <main class="mdl-layout__content mdl-color--grey-50">
-        <section class="page-content">
+<!-- HEADER -->
+<header class="mdl-layout__header">
+  <div class="mdl-layout__header-row">
+     <h1 class="mdl-layout-title">CRM Admin - Jiaozinan DC229841</h1>
+     <div class="mdl-layout-spacer"></div>
 
-            <div class="mdl-grid">
+     <div>
+        <label id="tt2" class="material-icons mdl-badge" data-badge="5">account_box</label>
+        <div class="mdl-tooltip" data-mdl-for="tt2">Messages</div>
 
-              <!-- Customers -->
-              <div class="mdl-cell mdl-cell--7-col card-lesson mdl-card mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--orange">
-                  <h2 class="mdl-card__title-text">Customers</h2>
-                </div>
+        <label id="tt3" class="material-icons mdl-badge" data-badge="4">notifications</label>
+        <div class="mdl-tooltip" data-mdl-for="tt3">Notifications</div>
+     </div>
+  </div>
+</header>
 
-                <div class="mdl-card__supporting-text">
-                    <table class="mdl-data-table mdl-shadow--2dp">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>University</th>
-                          <th>City</th>
-                          <th>Sales</th>
-                        </tr>
-                      </thead>
+<!-- LEFT NAV -->
+<div class="mdl-layout__drawer mdl-color--blue-grey-800 mdl-color-text--white">
+   <div class="profile">
+       <img src="images/profile.jpg" class="avatar" alt="profile">
+       <h2>John Locke</h2>
+       <span>johnlocke@example.com</span>
+   </div>
 
-                      <tbody>
-                      <?php
-                      foreach ($customers as $c) {
-                          echo "<tr>";
+   <nav class="mdl-navigation">
+       <a class="mdl-navigation__link" href="#">Dashboard</a>
+       <a class="mdl-navigation__link" href="#">Messages</a>
+       <a class="mdl-navigation__link" href="#">Tasks</a>
+       <a class="mdl-navigation__link" href="#">Orders</a>
+       <a class="mdl-navigation__link" href="#">Configure</a>
+       <a class="mdl-navigation__link" href="#">Catalog</a>
+       <a class="mdl-navigation__link" href="#">Customers</a>
+       <a class="mdl-navigation__link" href="#">Analytics</a>
+   </nav>
+</div>
 
-                          echo "<td>
-                                <a href='?id={$c['id']}'>
-                                {$c['firstName']} {$c['lastName']}
-                                </a>
-                                </td>";
+<!-- MAIN -->
+<main class="mdl-layout__content">
+<section class="page-content">
 
-                          echo "<td>{$c['university']}</td>";
-                          echo "<td>{$c['city']}</td>";
-                          echo "<td><span class='sparkline'>{$c['sales']}</span></td>";
+<div class="mdl-grid">
 
-                          echo "</tr>";
-                      }
-                      ?>
-                      </tbody>
+<!-- Customers -->
+<div class="mdl-cell mdl-cell--7-col mdl-card mdl-shadow--2dp">
+<div class="mdl-card__title mdl-color--orange">
+<h2 class="mdl-card__title-text">Customers</h2>
+</div>
 
-                    </table>
-                </div>
-              </div>
+<div class="mdl-card__supporting-text">
+<table class="mdl-data-table mdl-shadow--2dp">
+<thead>
+<tr>
+<th>Name</th>
+<th>University</th>
+<th>City</th>
+<th>Sales</th>
+</tr>
+</thead>
 
-              <!-- Right side -->
-              <div class="mdl-grid mdl-cell--5-col">
+<tbody>
 
-                  <!-- Customer Details -->
-                  <div class="mdl-cell mdl-cell--12-col card-lesson mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
-                      <h2 class="mdl-card__title-text">Customer Details</h2>
-                    </div>
+<tr>
+<td><a href="?id=18">Joao Fernandes</a></td>
+<td>University of Lisbon</td>
+<td>Lisbon</td>
+<td><span class="sparkline">3,3,4,3,5,1,3,3,1,2,1,5</span></td>
+</tr>
 
-                    <div class="mdl-card__supporting-text">
-                    <?php
-                    if ($selectedID) {
-                        foreach ($customers as $c) {
-                            if ($c['id'] == $selectedID) {
-                                echo "<h4>{$c['firstName']} {$c['lastName']}</h4>";
-                                echo "<p>Email: {$c['email']}</p>";
-                                echo "<p>Phone: {$c['phone']}</p>";
-                                echo "<p>{$c['address']}, {$c['city']}</p>";
-                            }
-                        }
-                    } else {
-                        echo "<h4>Select a customer</h4>";
-                    }
-                    ?>
-                    </div>
-                  </div>
+</tbody>
+</table>
+</div>
+</div>
 
-                  <!-- Orders -->
-                  <div class="mdl-cell mdl-cell--12-col card-lesson mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
-                      <h2 class="mdl-card__title-text">Order Details</h2>
-                    </div>
+<!-- RIGHT -->
+<div class="mdl-cell mdl-cell--5-col">
 
-                    <div class="mdl-card__supporting-text">
-                        <table class="mdl-data-table mdl-shadow--2dp">
-                          <thead>
-                            <tr>
-                              <th>Cover</th>
-                              <th>ISBN</th>
-                              <th>Title</th>
-                            </tr>
-                          </thead>
+<!-- Customer Details -->
+<div class="mdl-card mdl-shadow--2dp">
+<div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+<h2 class="mdl-card__title-text">Customer Details</h2>
+</div>
 
-                          <tbody>
-                          <?php
-                          if ($selectedID) {
-                              $orders = readOrders($selectedID, "data/orders.txt");
+<div class="mdl-card__supporting-text">
+<h3>Joao Fernandes</h3>
+<p>Email: jfernandes@yahoo.pt</p>
+<p>Phone: +351 (213) 466-111</p>
+<p>Rua da Assuncao 53, Lisbon</p>
+</div>
+</div>
 
-                              if (count($orders) > 0) {
-                                  foreach ($orders as $o) {
-                                      echo "<tr>";
-                                      echo "<td><img src='images/tinysquare/{$o['isbn']}.jpg' width='50'></td>";
-                                      echo "<td>{$o['isbn']}</td>";
-                                      echo "<td>{$o['title']}</td>";
-                                      echo "</tr>";
-                                  }
-                              } else {
-                                  echo "<tr><td colspan='3'>No orders found</td></tr>";
-                              }
-                          }
-                          ?>
-                          </tbody>
+<!-- Orders -->
+<div class="mdl-card mdl-shadow--2dp">
+<div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+<h2 class="mdl-card__title-text">Order Details</h2>
+</div>
 
-                        </table>
-                    </div>
-                  </div>
+<div class="mdl-card__supporting-text">
+<table class="mdl-data-table mdl-shadow--2dp">
+<thead>
+<tr>
+<th>Cover</th>
+<th>ISBN</th>
+<th>Title</th>
+</tr>
+</thead>
 
-              </div>
+<tbody>
 
-            </div>
+<tr>
+<td><img src="images/tinysquare/0132948850.jpg" width="50" alt="book cover"></td>
+<td>0132948850</td>
+<td>Survey of Economics</td>
+</tr>
 
-        </section>
-    </main>
+<tr>
+<td><img src="images/tinysquare/0132948869.jpg" width="50" alt="book cover"></td>
+<td>0132948869</td>
+<td>Microeconomics</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+</main>
 
 </div>
 
