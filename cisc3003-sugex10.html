@@ -2,17 +2,19 @@
 <html lang="en">
 
 <head>
-    <title>Jiaozinan DC229841 - CISC3003 Suggested Exercise 10</title>
+    <title>CISC3003 Suggested Exercise 10</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+    <!-- 本地CSS -->
     <link rel="stylesheet" href="css/material.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/demo-styles.css">
 
+    <!-- JS -->
     <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="js/material.min.js"></script>
     <script src="js/jquery.sparkline.2.1.2.js"></script>
@@ -21,11 +23,21 @@
 <body>
 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-
+    
 <header class="mdl-layout__header">
   <div class="mdl-layout__header-row">
-     <h1 class="mdl-layout-title">CRM Admin - Jiaozinan DC229841</h1>
+     <h1 class="mdl-layout-title">CRM Admin</h1>
      <div class="mdl-layout-spacer"></div>
+
+     <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+
+        <label id="tt2" class="material-icons mdl-badge" data-badge="5">account_box</label>
+        <div class="mdl-tooltip" data-mdl-for="tt2">Messages</div>
+
+        <label id="tt3" class="material-icons mdl-badge" data-badge="4">notifications</label>
+        <div class="mdl-tooltip" data-mdl-for="tt3">Notifications</div>
+
+     </div>
   </div>
 </header>
 
@@ -35,6 +47,17 @@
        <h2>John Locke</h2>
        <span>johnlocke@example.com</span>
    </div>
+
+   <nav class="mdl-navigation">
+       <a class="mdl-navigation__link" href="#">Dashboard</a>
+       <a class="mdl-navigation__link" href="#">Messages</a>
+       <a class="mdl-navigation__link" href="#">Tasks</a>
+       <a class="mdl-navigation__link" href="#">Orders</a>
+       <a class="mdl-navigation__link" href="#">Configure</a>
+       <a class="mdl-navigation__link" href="#">Catalog</a>
+       <a class="mdl-navigation__link" href="#">Customers</a>
+       <a class="mdl-navigation__link" href="#">Analytics</a>
+   </nav>
 </div>
 
 <main class="mdl-layout__content">
@@ -61,27 +84,22 @@
 
 <tbody>
 
-<tr><td>Leonie Kohler</td><td>University of Stuttgart</td><td>Stuttgart</td><td><span class="sparkline">1,4,4,7,5,9,10,10,10,12,11,9</span></td></tr>
-<tr><td>Bjorn Hansen</td><td>University of Oslo</td><td>Oslo</td><td><span class="sparkline">6,4,4,7,8,9,10,10,6,6,3,9</span></td></tr>
-<tr><td>Francois Tremblay</td><td>McGill University</td><td>Montreal</td><td><span class="sparkline">9,12,14,17,15,12,10,10,10,16,11,9</span></td></tr>
-<tr><td>Frantisek Wichterlova</td><td>Charles University</td><td>Prague</td><td><span class="sparkline">1,2,4,3,5,1,1,1,1,2,1,5</span></td></tr>
-<tr><td>Astrid Gruber</td><td>Vienna University</td><td>Vienna</td><td><span class="sparkline">6,4,8,7,8,9,5,7,6,6,3,9</span></td></tr>
-<tr><td>Helena Holy</td><td>Charles University</td><td>Prague</td><td><span class="sparkline">3,3,4,7,2,3,2,10,6,6,3,9</span></td></tr>
-<tr><td>Aaron Mitchell</td><td>University of Manitoba</td><td>Winnipeg</td><td><span class="sparkline">4,4,7,8,9,4,10,6,6,3,9,11</span></td></tr>
-<tr><td>Ellie Sullivan</td><td>Aurora College</td><td>Yellowknife</td><td><span class="sparkline">11,14,8,7,5,9,9,6,10,6,11,9</span></td></tr>
-<tr><td>Joao Fernandes</td><td>University of Lisbon</td><td>Lisbon</td><td><span class="sparkline">3,3,4,3,5,1,3,3,1,2,1,5</span></td></tr>
-<tr><td>Madalena Sampaio</td><td>University of Porto</td><td>Porto</td><td><span class="sparkline">2,4,3,5,1,4,6,1,1,2,1,5</span></td></tr>
-<tr><td>Isabelle Mercier</td><td>University of Burgundy</td><td>Dijon</td><td><span class="sparkline">1,1,1,3,5,1,3,1,1,2,1,5</span></td></tr>
-<tr><td>Emma Jones</td><td>King's College</td><td>London</td><td><span class="sparkline">1,2,4,3,5,1,8,8,4,2,1,5</span></td></tr>
+<tr>
+<td><a href="?id=18">Joao Fernandes</a></td>
+<td>University of Lisbon</td>
+<td>Lisbon</td>
+<td><span class="sparkline">3,3,4,3,5,1,3,3,1,2,1,5</span></td>
+</tr>
 
 </tbody>
 </table>
 </div>
 </div>
 
-<!-- 右边展示一个示例 -->
+<!-- RIGHT -->
 <div class="mdl-cell mdl-cell--5-col">
 
+<!-- Customer Details -->
 <div class="mdl-card mdl-shadow--2dp">
 <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
 <h2 class="mdl-card__title-text">Customer Details</h2>
@@ -95,6 +113,7 @@
 </div>
 </div>
 
+<!-- Orders -->
 <div class="mdl-card mdl-shadow--2dp">
 <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
 <h2 class="mdl-card__title-text">Order Details</h2>
@@ -102,10 +121,29 @@
 
 <div class="mdl-card__supporting-text">
 <table class="mdl-data-table mdl-shadow--2dp">
+<thead>
+<tr>
+<th>Cover</th>
+<th>ISBN</th>
+<th>Title</th>
+</tr>
+</thead>
 
-<tr><td><img src="images/tinysquare/0132948850.jpg" width="50" alt="book"></td><td>0132948850</td><td>Survey of Economics</td></tr>
-<tr><td><img src="images/tinysquare/0132948869.jpg" width="50" alt="book"></td><td>0132948869</td><td>Microeconomics</td></tr>
+<tbody>
 
+<tr>
+<td><img src="images/tinysquare/0132948850.jpg" width="50" alt="book"></td>
+<td>0132948850</td>
+<td>Survey of Economics</td>
+</tr>
+
+<tr>
+<td><img src="images/tinysquare/0132948869.jpg" width="50" alt="book"></td>
+<td>0132948869</td>
+<td>Microeconomics</td>
+</tr>
+
+</tbody>
 </table>
 </div>
 </div>
